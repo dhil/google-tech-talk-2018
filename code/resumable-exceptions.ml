@@ -1,5 +1,7 @@
-(* From exceptions to algebraic effects. *)
+(* A simple and robust calculator using resumable exceptions. *)
 
+(* Override the definition of string to integer conversion to throw
+   [Conversion_failure] when conversion fails. *)
 exception Conversion_failure of string
 let int_of_string str =
   match int_of_string str with
@@ -15,7 +17,7 @@ let rec sum_up result =
   with
   | number -> sum_up (number + result)
   | exception (Conversion_failure str) ->
-     failwith (Printf.sprintf "Conversion failure '%s'" str)
+      failwith (Printf.sprintf "Conversion failure '%s'" str)
   | exception End_of_file -> result
 
 let _ =
