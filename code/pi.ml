@@ -6,6 +6,7 @@ module Point = struct
   type t = float * float
 
   let make x y = (x,y)
+
   let is_inside_unit_circle (x,y)
     = x *. x +. y *. y <= 1.
 end
