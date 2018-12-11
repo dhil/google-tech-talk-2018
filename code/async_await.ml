@@ -63,7 +63,7 @@ module Async : ASYNC = struct
            | Listeners ks -> ks
            | _ -> failwith "Impossible!"
          in
-         (* Notify each listener of the result. *)
+         (* Notify each listener of the [result]. *)
          List.iter
            (fun listener ->
              enqueue (fun () -> continue listener result)) listeners;
@@ -92,7 +92,8 @@ module Async : ASYNC = struct
          (* Resume the next task. *)
          dequeue ()
     in
-    (* Start by forking [main] with an empty listeners' list. *)
+    (* Start by forking the [main] task with an empty listeners'
+       list. *)
     fork (ref (Listeners [])) main
 end
 
