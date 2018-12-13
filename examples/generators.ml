@@ -44,8 +44,8 @@ let where predicate stream =
   | effect (Yield _) k ->
      continue k ()
 
-(* Iterates a given [stream] and applies [f] to each element along
-     with its index in the stream. *)
+(* An iterator. Iterates a given [stream] and applies [f] to each
+   element along with its index in the stream. *)
 let iteri f stream =
   let i = ref 0 in
   match stream () with
