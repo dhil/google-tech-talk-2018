@@ -2,7 +2,7 @@
    game. Most probably programmed a variation of this program during
    their freshman year. *)
 
-let _TODO = failwith "TODO"
+let _TODO () = failwith "TODO"
 
 (* Reads an integer from the "environment". *)
 let read_int () = int_of_string (input_line stdin)
@@ -24,7 +24,7 @@ let rec guess () =
   | Low     -> Printf.printf "Your guess is too low.\n%!"; guess ()
 
 (* A handler for [Guess] amounts to implementing a validator. *)
-let my_secret secret game = _TODO
+let my_secret secret game = _TODO ()
 
 (* Starts an ordinary game. *)
 let play () =
@@ -71,7 +71,7 @@ let play () =
 (* This handler accumulates a history of guesses made. *)
 (* let history game =
  *   let guesses : (int * answer) list ref = ref [] in
- *   _TODO *)
+ *   _TODO () *)
 
 (* let play_with_history () =
  *   input

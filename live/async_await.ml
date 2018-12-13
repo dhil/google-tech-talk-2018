@@ -1,6 +1,6 @@
 (* The async/await idiom using effect handlers. *)
 
-let _TODO = failwith "TODO"
+let _TODO () = failwith "TODO"
 
 module type ASYNC = sig
   type 'a future
@@ -60,28 +60,28 @@ module Async : ASYNC = struct
       match main () with
       | effect Suspend task ->
          (* Suspend the current [task]. *)
-         _TODO
+         _TODO ();
          (* Resume the next task. *)
-        _TODO
+        _TODO ();
       | effect (Async task) parent ->
          (* Create a new [future] for the new [task]. *)
-         _TODO;
+         _TODO ();
          (* Suspend the [parent] task. *)
-         _TODO;
+         _TODO ();
          (* Run the new [task]. *)
-         _TODO
+         _TODO ()
       | effect (Await future) listener ->
          (* Check whether the [future] has already been completed --
             otherwise add [listener] to the listeners' list. *)
-         _TODO
+         _TODO ()
       | result ->
          (* A task has completed with [result]. *)
          (* Notify each listener of the [result]. *)
-         _TODO;
+         _TODO ();
          (* Complete the [future]. *)
-         _TODO;
+         _TODO ();
          (* Run the next task. *)
-         _TODO;
+         _TODO ();
     in
     (* Start by scheduling the [main] task with an empty listeners'
        list. *)

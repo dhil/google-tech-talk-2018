@@ -1,6 +1,6 @@
 (* Generators and iterators as effect handlers. *)
 
-let _TODO = failwith "TODO"
+let _TODO () = failwith "TODO"
 
 (* Predicate that tests whether a given number is a perfect number. *)
 let is_perfect n =
@@ -19,7 +19,7 @@ let is_perfect n =
 (* Yield is an abstract operation. *)
 (* For simplicity we fix yield to work over integers. *)
 effect Yield : int -> unit
-let yield e = _TODO
+let yield e = _TODO ()
 
 (** Stream operations. **)
 (* Takes up to [n] elements from a given [stream]. *)
@@ -27,12 +27,12 @@ let take n stream =
   if n = 0 then ()
   else
     let i = ref 0 in
-    _TODO
+    _TODO ()
 
 (* Filters a given [stream] according to a particular
    [predicate]. *)
 let where predicate stream =
-  _TODO
+  _TODO ()
 
 (* An iterator. Iterates a given [stream] and applies [f] to each
    element along with its index in the stream. *)
