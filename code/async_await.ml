@@ -63,7 +63,7 @@ module Async : ASYNC = struct
            | Listeners ks -> ks
            | _ -> failwith "Impossible!"
          in
-         (* Notify each listener of the result. *)
+         (* Notify each listener of the [result]. *)
          List.iter
            (fun listener ->
              enqueue (fun () -> continue listener result)) listeners;
@@ -92,21 +92,28 @@ module Async : ASYNC = struct
          (* Resume the next task. *)
          dequeue ()
     in
-    (* Start by forking [main] with an empty listeners' list. *)
+    (* Start by forking the [main] task with an empty listeners'
+       list. *)
     fork (ref (Listeners [])) main
 end
 
 let example () =
+  Random.self_init ();
   let open Async in
+  let task name () =
+    Printf.printf "[%s] Starting\n%!" name;
+    let v = Random.int 100 in
+    let delay = Random.float 2.0 in
+    wait delay; (* Simulates latency. *)
+    Printf.printf "[%s] Ending with %d\n%!" name v;
+    v
+  in
   let main () =
-    let hello_task =
-      async (fun () -> wait 1.5; print_endline "Hello")
-    in
-    let world_task =
-      async (fun () -> wait 0.5; print_endline "World")
-    in
-    await hello_task;
-    await world_task
+    let a = async (task "a") in
+    let b = async (task "b") in
+    let c = async (fun () -> await a + await b) in
+    Printf.printf "Sum is %d\n" (await c);
+    assert (await a + await b = await c)
   in
   run main
 

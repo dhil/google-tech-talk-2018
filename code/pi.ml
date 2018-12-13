@@ -20,15 +20,17 @@ module Stream(E : sig type t end) = struct
   let yield e = perform (Yield e)
 
   (* Takes up to [n] elements from a given [stream]. *)
-  let take n (stream : t) =
-    let i = ref 0 in
-    match stream () with
-    | () -> ()
-    | effect (Yield e) k when !i < n->
-       incr i;       (* increments [i] by one. *)
-       yield e;      (* forwards the element [e]. *)
-       continue k () (* requests the next element from the [stream]. *)
-    | effect (Yield _) _ -> ()
+  let take n stream =
+    if n = 0 then ()
+    else
+      let i = ref 0 in
+      match stream () with
+      | () -> ()
+      | effect (Yield e) k ->
+         incr i;       (* increments [i] by one. *)
+         yield e;      (* forwards the element [e]. *)
+         if !i < n then
+           continue k () (* requests the next element from the [stream]. *)
 
   (* Filters a given [stream] according to a particular
      [predicate]. *)
