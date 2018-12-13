@@ -103,4 +103,6 @@ let main () =
   Printf.printf "Compute π using the Monte Carlo method.\n%!";
   DoubleStream.iteri
     (fun i estimate -> Printf.printf "%3d. π ≅ %f\n%!" (i+1) estimate)
-    (fun () -> DoubleStream.take 500 compute_pi);
+    (fun () -> DoubleStream.take 500 compute_pi)
+
+let _ = main ()
